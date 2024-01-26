@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authController = {};
 
-
 authController.signup = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -53,7 +52,7 @@ authController.signin = async (req, res) => {
 
   const token = jwt.sign({ id: existingUser._id }, process.env.TOKEN_SECRET);
 
-  res.json({ token });
+  res.status(200).json({ token });
 };
 
 module.exports = authController;
