@@ -1,4 +1,5 @@
 import 'package:client/Components/profile_post.dart';
+import 'package:client/pages/signin_page.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -85,7 +86,14 @@ class ProfilePage extends StatelessWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: ElevatedButton(
-                  onPressed: () {}, child: const Text("Edit Profile")),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignInPage(),
+                        ));
+                  },
+                  child: const Text("Edit Profile")),
             ),
           ],
         ),

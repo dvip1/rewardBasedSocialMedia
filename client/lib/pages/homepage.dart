@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   LinearPercentIndicator(
+                      barRadius: const Radius.circular(20),
                       width: MediaQuery.of(context).size.width - 120,
                       animation: true,
                       lineHeight: 20.0,

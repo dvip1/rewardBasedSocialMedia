@@ -1,3 +1,4 @@
+import 'package:client/pages/community_page.dart';
 import 'package:flutter/material.dart';
 
 class CommunityWidget extends StatelessWidget {
@@ -6,7 +7,13 @@ class CommunityWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CommunityPage(),
+            ));
+      },
       child: Card(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
