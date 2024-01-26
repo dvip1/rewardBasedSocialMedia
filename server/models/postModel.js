@@ -1,22 +1,5 @@
 const mongoose = require('mongoose')
 
-const commentSchema = new mongoose.Schema({
-    commentorId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
-    },
-    comment: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    timestamp: {
-        type: Date,
-        default: Date.now
-    }
-});
-
 const postSchema = new mongoose.Schema({
     media: {
         type: String,
@@ -30,7 +13,22 @@ const postSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    comments: [commentSchema]
+    comments: [{
+        commentorId: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User'
+        },
+        comment: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        timestamp: {
+            type: Date,
+            default: Date.now
+        }
+    }]
 }, { timestamps: true })
 
 postSchema.index({ authorId: 1 });
