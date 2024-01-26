@@ -1,6 +1,5 @@
 import 'package:client/pages/activities_page.dart';
 import 'package:client/pages/homepage.dart';
-import 'package:client/pages/new_post.dart';
 import 'package:client/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,7 @@
 import 'package:client/pages/base.dart';
 
-import 'package:client/theme/dark_mode.dart';
-import 'package:client/theme/light_mode.dart';
+// import 'package:client/theme/dark_mode.dart';
+// import 'package:client/theme/light_mode.dart';
 import 'package:flutter/material.dart';
 
 void main() {
