@@ -17,19 +17,22 @@ const communitySchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    members: [{
+    members: 
+    [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }]
     ,
-    tasks: [{
-        description: {
-        type: String,
-    },
+    tasks: [
+    {
+    description: {
+          type: String,
+        },
     deadline: {
         type: Date
-    },
-}]
+        },
+    }
+    ]
 }, { timestamps: true })
 
 communitySchema.index({ members: 1 });
