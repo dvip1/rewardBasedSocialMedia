@@ -1,3 +1,4 @@
+import 'package:client/Components/post_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -45,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               )),
+          const PostWidget()
         ],
       )),
     );

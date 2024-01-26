@@ -14,22 +14,22 @@ class _WrapperState extends State<Wrapper> {
   int currentPageIndex = 0;
   List<Widget> pages = [
     MyHomePage(),
-    ActivitiesPage(),
-    ProfilePage(),
+    const ActivitiesPage(),
+    const ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('L E V E L   U P'),
+          title: const Text('L E V E L   U P'),
           actions: [
             IconButton(
               onPressed: () => {},
-              icon: Icon(Icons.search),
+              icon: const Icon(Icons.search),
             ),
             IconButton(
               onPressed: () => {},
-              icon: Icon(Icons.notifications),
+              icon: const Icon(Icons.notifications),
             )
           ],
         ),
