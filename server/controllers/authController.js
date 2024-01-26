@@ -1,25 +1,13 @@
 const userModel = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const multer = require("multer");
 const authController = {};
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads");
-  },
-  filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix + ext);
-  },
-});
 
-const upload = multer({ storage: storage });
 authController.signup = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { username, email, password } = req.body;
 
-  if (!name.trim() || !email.trim() || !password.trim())
+  if (!username.trim() || !email.trim() || !password.trim())
     return res.status(400).json({ message: "all fields required" });
   else if (password.length < 8)
     return res.status(400).json({ message: "password length is too short" });
@@ -30,10 +18,10 @@ authController.signup = async (req, res) => {
       return res.status(409).json({ message: "Email already used" });
 
     const user = await userModel.create({
-      name,
+      username,
       email,
       password,
-      profileImage: req.file ? req.file.filename : undefined,
+      profileImage: `${req.protocol}://${req.headers.host}/uploads/${req.file.originalname}`,
     });
 
     if (user) res.status(201).json({ message: "user created" });
