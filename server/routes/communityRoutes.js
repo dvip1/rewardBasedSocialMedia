@@ -7,6 +7,7 @@ router
   .route("/make_community")
   .post(authorize, communityController.createCommunity);
 
+router.route("/community").get(communityController.getAllCommunity);
 router.route("/community/:communityId").get(communityController.getCommunity);
 
 module.exports = router;
