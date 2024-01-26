@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:client/pages/base.dart';
 import 'package:client/pages/signup_page.dart';
+import 'package:client/services/shared_pref.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -9,16 +14,45 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  bool isloading = false;
+  String errmsg = "";
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
 
+  void navigate() {
+    Navigator.pop(context);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Wrapper(),
+        ));
+  }
+
   void login() async {
-    showDialog(
-        context: context,
-        builder: (context) => const Center(
-              child: CircularProgressIndicator(),
-            ));
+    setState(() {
+      isloading = true;
+    });
+
+    print(emailController.text);
+
+    final response = await http.post(
+      Uri.parse("http://192.168.78.217:5000/auth/signin"),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(
+          {'email': emailController.text, 'password': passwordController.text}),
+    );
+
+    if (response.statusCode == 200) {
+      if (await SharedPref.saveToken(jsonDecode(response.body)["token"])) {
+        navigate();
+      }
+    } else {
+      // Failed login
+      setState(() {
+        errmsg = response.body;
+        isloading = false;
+      });
+    }
   }
 
   @override
@@ -39,6 +73,7 @@ class _SignInPageState extends State<SignInPage> {
                 const Text("L E V E L  U P", style: TextStyle(fontSize: 20)),
                 const SizedBox(height: 25),
                 TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12)),
@@ -46,6 +81,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 const SizedBox(height: 15),
                 TextField(
+                  controller: passwordController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12)),
@@ -59,9 +95,18 @@ class _SignInPageState extends State<SignInPage> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("Continue"),
+                isloading
+                    ? const CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: () {
+                          login();
+                        },
+                        child: const Text("Continue"),
+                      ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(errmsg),
                 ),
                 const SizedBox(height: 20),
                 Row(

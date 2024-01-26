@@ -85,14 +85,7 @@ class ProfilePage extends StatelessWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignInPage(),
-                        ));
-                  },
-                  child: const Text("Edit Profile")),
+                  onPressed: () {}, child: const Text("Edit Profile")),
             ),
           ],
         ),

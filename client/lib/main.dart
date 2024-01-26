@@ -1,10 +1,11 @@
-import 'package:client/pages/base.dart';
+import 'package:client/services/authenticator.dart';
 
 // import 'package:client/theme/dark_mode.dart';
 // import 'package:client/theme/light_mode.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -16,9 +17,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Level Up',
         // theme: lightTheme,
         // darkTheme: darkTheme,
-        home: Wrapper());
+        home: Authenticator());
   }
 }
