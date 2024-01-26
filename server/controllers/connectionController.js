@@ -5,6 +5,28 @@ const userModel = require("../models/userModel");
 
 const connectionController = {};
 
+connectionController.getUserData = async (req, res) => {
+  const { connectionName } = req.body;
+
+  const userId = req.user.id;
+  if (!mongoose.isValidObjectId(userId))
+    return res.status(404).json({ message: "userId is not valid" });
+
+  const connectionUser = await userModel.findOne({ username: connectionName });
+  if (!connectionUser)
+    return res.status(404).json({ message: "connection not found" });
+  if (connectionUser) {
+    const connectionId = connectionUser._id;
+    const connectionUserName = connectionUser.username;
+    console.log(connectionId, connectionUserName);
+    connectionUserData = {
+      connectionId,
+      connectionUserName,
+    };
+    res.status(200).json(connectionUserData);
+  }
+};
+
 connectionController.addConnection = async (req, res) => {
   try {
     const userId = req.user.id;

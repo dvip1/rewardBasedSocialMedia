@@ -6,4 +6,6 @@ router
   .route("/addConnection")
   .post(authorize, connectionController.addConnection);
 
+router.route("/getUserData").post(authorize, connectionController.getUserData);
+
 module.exports = router;
