@@ -1,35 +1,45 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const postSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema(
+  {
+    authorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     media: {
-        type: String,
-        required: [true, 'Content cannot be empty'],
+      type: String,
+      required: [true, "Content cannot be empty"],
     },
     caption: {
-        type: String,
-        trim: true
+      type: String,
+      trim: true,
     },
     likes: {
-        type: Number,
-        default: 0
+      type: Number,
+      default: 0,
     },
-    comments: [{
+    comments: [
+      {
         commentorId: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'User'
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: "User",
         },
         comment: {
-            type: String,
-            required: true,
-            trim: true
+          type: String,
+          required: true,
+          trim: true,
         },
         timestamp: {
-            type: Date,
-            default: Date.now
-        }
-    }]
-}, { timestamps: true })
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
 postSchema.index({ authorId: 1 });
 
