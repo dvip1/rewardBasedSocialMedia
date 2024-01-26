@@ -13,6 +13,8 @@ router
   .get(authorize, postController.getPost)
   .delete(authorize, postController.deletePost);
 
+router.route("/comment/:postId").post(authorize, postController.addComment);
+
 router.route("/user/:userId").get(postController.getUserPost);
 
 module.exports = router;

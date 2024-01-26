@@ -80,4 +80,23 @@ postController.updatePost = async (req, res) => {
   res.json({ message: "post updated", data: updatedPost });
 };
 
+postController.addComment = async (req, res) => {
+  const { comment } = req.body;
+  const postId = req.params.postId;
+  const commentorId = req.user.id;
+  const post = postModel.findById(postId);
+  if (!mongoose.isValidObjectId(postId))
+    return res.status(404).json({ message: "postId is not valid" });
+
+  const newComment = {
+    commentorId: commentorId,
+    comment: comment,
+  };
+  if (!post.comments) {
+    post.comments = [];
+  }
+  post.comments.push(newComment);
+  res.json(newComment);
+};
+
 module.exports = postController;
