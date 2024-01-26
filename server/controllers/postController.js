@@ -84,19 +84,42 @@ postController.addComment = async (req, res) => {
   const { comment } = req.body;
   const postId = req.params.postId;
   const commentorId = req.user.id;
-  const post = postModel.findById(postId);
-  if (!mongoose.isValidObjectId(postId))
-    return res.status(404).json({ message: "postId is not valid" });
 
-  const newComment = {
-    commentorId: commentorId,
-    comment: comment,
-  };
-  if (!post.comments) {
-    post.comments = [];
+  if (!mongoose.isValidObjectId(postId)) {
+    return res.status(404).json({ message: "postId is not valid" });
   }
-  post.comments.push(newComment);
-  res.json(newComment);
+
+  try {
+    // Await the result of the findById query
+    let post = await postModel.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const newComment = {
+      commentorId: commentorId,
+      comment: comment,
+    };
+
+    // Make sure the comments array exists before pushing
+    if (!post.comments) {
+      post.comments = [];
+    }
+
+    post.comments.push(newComment);
+
+    // Update the comments directly in the database
+    await postModel.updateOne(
+      { _id: postId },
+      { $set: { comments: post.comments } }
+    );
+
+    res.json(newComment);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
 };
 
 module.exports = postController;
