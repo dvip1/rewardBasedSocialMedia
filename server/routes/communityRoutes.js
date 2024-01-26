@@ -1,11 +1,12 @@
-const communityController = require('../controllers/communityController');
-const router= require('express').Router();
+const communityController = require("../controllers/communityController");
+const router = require("express").Router();
 
-router.route('/make_community')
-    .post(communityController.createCommunity)
+const authorize = require("../middleware/authorize");
 
-router.route('/community/:communityId')
-    .get(communityController.getCommunity)
+router
+  .route("/make_community")
+  .post(authorize, communityController.createCommunity);
 
+router.route("/community/:communityId").get(communityController.getCommunity);
 
 module.exports = router;
