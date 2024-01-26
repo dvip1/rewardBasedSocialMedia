@@ -1,4 +1,5 @@
 const userController = require("../controllers/userController");
+const authorize = require("../middleware/authorize");
 const router = require("express").Router();
 
 router.route("/get")
@@ -9,5 +10,8 @@ router.route("/get/:userId")
 
 router.route("/update")
     .put(userController.update)
+
+router.route("/connctions")
+    .get(authorize, userController.getAllConnections)
 
 module.exports = router;

@@ -36,4 +36,13 @@ userController.getAllUser = async (req, res) => {
     res.json(user)
 }
 
+userController.getAllConnections = async (req, res)=>{
+    const userId = req.user.id;
+    console.log(userId);
+    if (! mongoose.isValidObjectId(userId)) return res.status(404).json({ message: "userId is not valid" });
+
+    const connections = await userModel.findById({_id:userId}).select("connections").lean().exec();
+    res.json(connections)
+}
+
 module.exports = userController;

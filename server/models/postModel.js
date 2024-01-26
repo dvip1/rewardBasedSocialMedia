@@ -1,23 +1,36 @@
 const mongoose = require('mongoose')
 
 const postSchema = new mongoose.Schema({
-    content: {
+    media: {
         type: String,
-        required: true
+        required: [true, 'Content cannot be empty'],
     },
-    media: String,
-    author: {
+    caption: {
         type: String,
-        required: true
+        trim: true
     },
-    authorId: {
-        type: String,
-        required: true
-    },
-    support: {
+    likes: {
         type: Number,
         default: 0
-    }
+    },
+    comments: [{
+        commentorId: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User'
+        },
+        comment: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        timestamp: {
+            type: Date,
+            default: Date.now
+        }
+    }]
 }, { timestamps: true })
+
+postSchema.index({ authorId: 1 });
 
 module.exports = mongoose.model("Post", postSchema);
