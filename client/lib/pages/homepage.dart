@@ -1,4 +1,5 @@
 import 'package:client/Components/post_widget.dart';
+import 'package:client/pages/new_post.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -18,7 +19,13 @@ class _MyHomePageState extends State<MyHomePage> {
         width: 75,
         child: FloatingActionButton(
             backgroundColor: Theme.of(context).colorScheme.secondary,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return const NewPostWidget();
+                },
+              ));
+            },
             child: const Icon(
               Icons.add,
               color: Colors.white,
@@ -46,7 +53,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               )),
-          const PostWidget()
+          const PostWidget(),
+          const PostWidget(),
+          const PostWidget(),
+          const PostWidget(),
         ],
       )),
     );

@@ -15,7 +15,7 @@ class _WrapperState extends State<Wrapper> {
   int currentPageIndex = 0;
   List<Widget> pages = [
     MyHomePage(),
-    NewPostWidget(),
+    const ActivitiesPage(),
     const ProfilePage(),
   ];
   @override
