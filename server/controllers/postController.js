@@ -122,4 +122,26 @@ postController.addComment = async (req, res) => {
   }
 };
 
+postController.addLike = async (req, res) => {
+  const postId = req.params.postId;
+  const { likes } = req.body;
+
+  try {
+    const post = await postModel.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const prevLikes = post.likes;
+    const newLikes = prevLikes + parseInt(likes);
+
+    await postModel.updateOne({ _id: postId }, { $set: { likes: newLikes } });
+
+    res.json({ message: "Like Updated" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 module.exports = postController;
