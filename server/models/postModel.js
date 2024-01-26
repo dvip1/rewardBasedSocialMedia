@@ -26,7 +26,6 @@ const postSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    media: String,
     likes: {
         type: Number,
         default: 0
