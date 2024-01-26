@@ -75,14 +75,4 @@ communityController.addMember = async (req, res) => {
   }
 };
 
-communityController.getAllCommunity = async (req, res) => {
-  try {
-    const communities = await communityModel.find({}).lean().exec();
-    if (communities) res.json(communities);
-    else res.status(404).json({ message: "community not found" });
-  } catch (error) {
-    res.status(500).json({ message: "Failed to get community", error });
-  }
-};
-
 module.exports = communityController;
