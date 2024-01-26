@@ -128,15 +128,26 @@ postController.addLike = async (req, res) => {
 
   try {
     const post = await postModel.findById(postId);
+    const user = await userModel.findById(post.authorId);
 
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }
 
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
     const prevLikes = post.likes;
+    const prevKarma = user.karmas;
     const newLikes = prevLikes + parseInt(likes);
+    const newKarma = prevKarma + parseInt(likes) * 2;
 
     await postModel.updateOne({ _id: postId }, { $set: { likes: newLikes } });
+
+    await userModel.updateOne(
+      { _id: post.authorId },
+      { $set: { karmas: newKarma } }
+    );
 
     res.json({ message: "Like Updated" });
   } catch (error) {

@@ -15,6 +15,8 @@ router
 
 router.route("/comment/:postId").post(authorize, postController.addComment);
 
+router.route("/like/:postId").post(authorize, postController.addLike);
+
 router.route("/user/:userId").get(postController.getUserPost);
 
 module.exports = router;
