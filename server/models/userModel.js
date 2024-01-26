@@ -17,14 +17,19 @@ const userSchema = new mongoose.Schema({
         required: true,
         set: value => bcrypt.hashSync(value, 10)
     },
-    birthday: Date,
-    gender: {
-        type: String,
-        enum: ['male', 'female']
+    streaks:{
+        type:Number,
+        default:0
     },
-    profession: String,
+    karmas:{
+        type:Number,
+        default:0
+    },
     posts: [String],
-    supportedPosts: [String]
+    likedPosts: [String],
+    connections:[String],
+    badges:[String],
+    communities:[String]
 }, { timestamps: true });
 
 module.exports = mongoose.model("User", userSchema)
