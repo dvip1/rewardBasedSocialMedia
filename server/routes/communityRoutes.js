@@ -9,5 +9,5 @@ router
 
 router.route("/community").get(communityController.getAllCommunity);
 router.route("/community/:communityId").get(communityController.getCommunity);
-
+router.route("/join_community").post(authorize, communityController.addMember);
 module.exports = router;
