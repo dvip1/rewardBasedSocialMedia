@@ -86,7 +86,6 @@ class _PostWidgetState extends State<PostWidget> {
           height: 16,
         ),
         SizedBox(
-          width: MediaQuery.of(context).size.width - 56,
           child: Text(widget.caption,
               style:
                   const TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
@@ -132,11 +131,11 @@ class _PostWidgetState extends State<PostWidget> {
         ),
         const SizedBox(
           height: 10,
+          child: Divider(
+            thickness: 0.5,
+            color: Colors.grey,
+          ),
         ),
-        const Divider(
-          thickness: 0.5,
-          color: Colors.grey,
-        )
       ]),
     );
   }
