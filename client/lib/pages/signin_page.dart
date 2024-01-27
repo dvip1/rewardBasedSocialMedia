@@ -33,8 +33,6 @@ class _SignInPageState extends State<SignInPage> {
       isloading = true;
     });
 
-    print(emailController.text);
-
     final response = await http.post(
       Uri.parse("http://192.168.137.1:5000/auth/signin"),
       headers: {'Content-Type': 'application/json'},
