@@ -19,8 +19,7 @@ authController.signup = async (req, res) => {
     const user = await userModel.create({
       username,
       email,
-      password,
-      profileImage: `${req.protocol}://${req.headers.host}/uploads/${req.file.originalname}`,
+      password
     });
 
     if (user) res.status(201).json({ message: "user created" });

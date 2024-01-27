@@ -17,21 +17,21 @@ const communitySchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    members: 
-    [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }]
+    members:
+        [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }]
     ,
     tasks: [
-    {
-    description: {
-          type: String,
-        },
-    deadline: {
-        type: Date
-        },
-    }
+        {
+            description: {
+                type: String,
+            },
+            deadline: {
+                type: Date
+            },
+        }
     ]
 }, { timestamps: true })
 

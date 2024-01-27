@@ -3,11 +3,12 @@ const router = require("express").Router();
 
 const authorize = require("../middleware/authorize");
 
-router
-  .route("/make_community")
-  .post(authorize, communityController.createCommunity);
+router.route("/community")
+  .post(authorize, communityController.createCommunity)
+  .get(communityController.getAllCommunity)
+  .put(authorize, communityController.addMember)
 
-router.route("/community").get(communityController.getAllCommunity);
-router.route("/community/:communityId").get(communityController.getCommunity);
-router.route("/join_community").post(authorize, communityController.addMember);
+router.route("/community/:communityId")
+  .get(communityController.getCommunity)
+
 module.exports = router;

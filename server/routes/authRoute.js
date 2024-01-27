@@ -4,7 +4,7 @@ const router = require("express").Router();
 
 
 router.route("/signup")
-    .post(media.single("profile-pic"), authController.signup)
+    .post(authController.signup)
 
 router.route("/signin")
     .post(authController.signin)
