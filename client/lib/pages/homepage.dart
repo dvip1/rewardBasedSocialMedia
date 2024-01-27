@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<http.Response> getPosts() async {
     String token = await SharedPref.getToken();
     Map<String, String> header = {"Authorization": "Bearer $token"};
-    return http.get(Uri.parse("http://192.168.78.217:5000/post/mypost"),
+    return http.get(Uri.parse("http://192.168.78.217:5000/post/myposts"),
         headers: header);
   }
 
@@ -65,34 +65,27 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               )),
-
-          FutureBuilder(
-            future: getPosts(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.active) {
-                return CircularProgressIndicator();
-              } else if (snapshot.hasData) {
-                var data = jsonDecode(snapshot.data!.body) as List;
-                ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (context, index) {
-                    var obj = data.elementAt(index);
-                    return PostWidget(
-                        authorId: obj["authorId"],
-                        timestamps: obj["timestamps"],
-                        media: obj["media"],
-                        caption: obj["caption"]);
-                  },
-                );
-              }
-              return Center(
-                child: Text(snapshot.error.toString()),
-              );
-            },
+          PostWidget(
+            authorId: 'trdt ',
+            timestamps: '21:23',
+            media:
+                'http://192.168.78.217:5000/uploads/1706322507869-332083018.mp4',
+            caption: 'this is a test caption',
           ),
-          // const PostWidget(),
-          // const PostWidget(),
-          // const PostWidget(),
+          PostWidget(
+            authorId: 'ebruifsd',
+            timestamps: '01:23',
+            media:
+                'http://192.168.78.217:5000/uploads/1706322495652-177857509.mp4',
+            caption: 'also new cew caption',
+          ),
+          PostWidget(
+            authorId: 'uiesf ',
+            timestamps: '6:22',
+            media:
+                'http://192.168.78.217:5000/uploads/1706317507161-887715023.mp4',
+            caption: 'test caption',
+          ),
         ],
       )),
     );
