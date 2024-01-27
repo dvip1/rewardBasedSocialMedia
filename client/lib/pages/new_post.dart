@@ -45,7 +45,9 @@ class _NewPostWidgetState extends State<NewPostWidget> {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
 
       if (result != null) {
-        file = result.files[0];
+        setState(() {
+          file = result.files.first;
+        });
       }
     }
 
@@ -54,10 +56,9 @@ class _NewPostWidgetState extends State<NewPostWidget> {
         title: const Text("create post"),
         actions: [
           IconButton(
-              onPressed: () {
-                post();
-              },
-              icon: const Icon(Icons.check))
+            onPressed: file != null ? () => post() : null,
+            icon: const Icon(Icons.check),
+          )
         ],
       ),
       body: Padding(
@@ -72,7 +73,7 @@ class _NewPostWidgetState extends State<NewPostWidget> {
               const SizedBox(
                 height: 18,
               ),
-              Text('Selected Files: ${file?.name}'),
+              Text('Selected Files: ${file?.path ?? "No file selected"}'),
               const SizedBox(
                 height: 18,
               ),

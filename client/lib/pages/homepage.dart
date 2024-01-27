@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:client/Components/post_widget.dart';
 import 'package:client/pages/new_post.dart';
 import 'package:client/services/shared_pref.dart';
@@ -80,11 +78,25 @@ class _MyHomePageState extends State<MyHomePage> {
             caption: 'also new cew caption',
           ),
           PostWidget(
-            authorId: 'uiesf ',
-            timestamps: '6:22',
+            authorId: 'ebruifsd',
+            timestamps: '01:23',
             media:
-                'http://192.168.78.217:5000/uploads/1706317507161-887715023.mp4',
-            caption: 'test caption',
+                'http://192.168.78.217:5000/uploads/1706322495652-177857509.mp4',
+            caption: 'also new cew caption',
+          ),
+          PostWidget(
+            authorId: 'ebruifsd',
+            timestamps: '01:23',
+            media:
+                'http://192.168.78.217:5000/uploads/1706327438458-92032677.mp4',
+            caption: 'also new cew caption',
+          ),
+          PostWidget(
+            authorId: 'ebruifsd',
+            timestamps: '01:23',
+            media:
+                'http://192.168.78.217:5000/uploads/1706327449030-761753763.mp4',
+            caption: 'also new cew caption',
           ),
         ],
       )),
