@@ -32,13 +32,14 @@ class _PostWidgetState extends State<PostWidget> {
     _videoPlayerController =
         VideoPlayerController.networkUrl(Uri.parse(widget.media))
           ..initialize().then((value) {
+            print('Video initialization successful');
+            print('Video duration: ${_videoPlayerController.value.duration}');
+            print('Video size: ${_videoPlayerController.value.size}');
             setState(() {
               _videoPlayerController.play();
             });
-          });
-    _videoPlayerController.setLooping(true);
-    _videoPlayerController.initialize().then((_) => setState(() {}));
-    _videoPlayerController.play();
+          })
+          ..setLooping(true);
   }
 
   @override

@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<http.Response> getPosts() async {
     String token = await SharedPref.getToken();
     Map<String, String> header = {"Authorization": "Bearer $token"};
-    return http.get(Uri.parse("http://localhost:5000/post/myposts"),
+    return http.get(Uri.parse("http://192.168.78.217:5000/post/myposts"),
         headers: header);
   }
 
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
               itemCount: data.length,
               itemBuilder: (context, index) {
                 return PostWidget(
-                  authorId: data[index]["authorId"],
+                  authorId: data[index]["user"],
                   timestamps: data[index]["createdAt"],
                   media: data[index]["media"],
                   caption: data[index]["caption"],

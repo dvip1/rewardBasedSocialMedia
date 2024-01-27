@@ -24,12 +24,12 @@ class _NewPostWidgetState extends State<NewPostWidget> {
       String token = await SharedPref.getToken();
       var client = http.Client();
       var request = http.MultipartRequest(
-          'post', Uri.parse('http://localhost:5000/post/post'));
+          'post', Uri.parse('http://192.168.78.217:5000/post/post'));
 
       request.headers.addAll({"Authorization": "Bearer $token"});
       request.fields["caption"] = captionController.text;
       request.files
-          .add(http.MultipartFile.fromString("content-media", file!.name));
+          .add(await http.MultipartFile.fromPath("content-media", file!.path!));
       var response = await client.send(request);
 
       client.close();
