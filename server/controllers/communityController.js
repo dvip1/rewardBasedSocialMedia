@@ -1,5 +1,6 @@
 const communityModel = require("../models/communityModels");
 const userModel = require("../models/userModel");
+const mongoose = require("mongoose");
 const communityController = {};
 
 communityController.createCommunity = async (req, res) => {
@@ -72,6 +73,52 @@ communityController.addMember = async (req, res) => {
     } else res.status(404).json({ message: "community not found" });
   } catch (error) {
     res.status(500).json({ message: "Failed to add member", error });
+  }
+};
+
+communityController.createTask = async (req, res) => {
+  try {
+   
+    const userId = req.user.id;
+    const { communityId, title, description, deadline } = req.body;
+
+    // Validate communityId as a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(communityId)) {
+      return res.status(400).json({ message: 'Invalid communityId' });
+    }
+
+    // Validate community existence and ownership
+    const community = await communityModel.findOne({ _id: communityId, leader: userId });
+
+    if (!community) {
+      return res.status(404).json({ message: 'Community not found or user not a member' });
+    }
+
+    // Create a new task object
+    const newTask = {
+      title,
+      description,
+      deadline,
+    };
+
+    // Make sure the tasks array exists before pushing
+    if (!community.tasks) {
+      community.tasks = [];
+    }
+
+    // Push the new task to the tasks array
+    community.tasks.push(newTask);
+
+    // Update the tasks directly in the database
+    await communityModel.updateOne(
+      { _id: communityId },
+      { $set: { tasks: community.tasks } }
+    );
+
+    res.status(201).json({ message: 'Task created successfully' });
+  } catch (error) {
+    console.error('Error creating task:', error);
+    res.status(500).json({ message: 'Failed to create task', error: error.message });
   }
 };
 
