@@ -57,6 +57,7 @@ postController.myPosts = async (req, res) => {
     .limit(20)
     .lean()
     .exec();
+    console.log(posts);
   res.json(posts);
 };
 
