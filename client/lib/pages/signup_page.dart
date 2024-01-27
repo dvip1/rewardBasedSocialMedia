@@ -1,7 +1,45 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  bool isloading = false;
+  String errmsg = "";
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController usernameControlller = TextEditingController();
+
+  void signup() async {
+    setState(() {
+      isloading = true;
+    });
+
+    final response = await http.post(
+      Uri.parse("http://localhost:5000/auth/signup"),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'username': usernameControlller.text,
+        'email': emailController.text,
+        'password': passwordController.text
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      navigate();
+    } else {
+      setState(() {
+        errmsg = response.body;
+        isloading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,31 +59,30 @@ class SignUpPage extends StatelessWidget {
                 const Text("M I N I M A L", style: TextStyle(fontSize: 20)),
                 const SizedBox(height: 25),
                 TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
+                      label: const Text("Email"),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12)),
                       hintText: ""),
                 ),
                 const SizedBox(height: 15),
                 TextField(
+                  controller: usernameControlller,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      hintText: "hintText"),
+                    label: const Text("Username"),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                  ),
                 ),
                 const SizedBox(height: 15),
                 TextField(
+                  controller: passwordController,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      hintText: "hintText"),
-                ),
-                const SizedBox(height: 15),
-                TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      hintText: "hintText"),
+                    label: const Text("Password"),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                  ),
                 ),
                 const SizedBox(height: 5),
                 const Row(
@@ -55,9 +92,18 @@ class SignUpPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("continue"),
+                isloading
+                    ? const CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: () {
+                          signup();
+                        },
+                        child: const Text("Continue"),
+                      ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(errmsg),
                 ),
                 const SizedBox(height: 20),
                 Row(
@@ -69,7 +115,7 @@ class SignUpPage extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       child: const Text(
-                        " Login Here",
+                        " signup Here",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 15),
                       ),
@@ -80,5 +126,9 @@ class SignUpPage extends StatelessWidget {
             ),
           ),
         )));
+  }
+
+  void navigate() {
+    Navigator.pop(context);
   }
 }
