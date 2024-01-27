@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:client/Components/profile_post.dart';
 import 'package:client/services/shared_pref.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -12,6 +13,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  Future<http.Response> getPosts() async {
+    String token = await SharedPref.getToken();
+    Map<String, String> header = {"Authorization": "Bearer $token"};
+    return http.get(Uri.parse("http://192.168.78.217:5000/post/myposts"),
+        headers: header);
+  }
+
   Future<http.Response> getData() async {
     String token = await SharedPref.getToken();
     Map<String, String> header = {"Authorization": "Bearer $token"};
@@ -131,22 +139,36 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 18,
                 ),
-                // SingleChildScrollView(
-                //   scrollDirection: Axis.horizontal,
-                //   child: ListView.builder(
-                //     shrinkWrap: true,
-                //     itemCount: (body["badges"] as List).length,
-                //     itemBuilder: (context, index) {
-                //       return const Icon(
-                //         Icons.accessibility_sharp,
-                //         size: 36,
-                //       );
-                //     },
-                //   ),
-                // ),
-                const SizedBox(
-                  height: 18,
-                ),
+                FutureBuilder(
+                  future: getPosts(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.active) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    } else if (snapshot.data == null) {
+                      return const Center(
+                        child: Text("no data found"),
+                      );
+                    }
+
+                    var data = jsonDecode(snapshot.data!.body) as List;
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2),
+                      shrinkWrap: true,
+                      itemCount: data.length,
+                      itemBuilder: (context, index) {
+                        return ProfilePost(
+                          media: data[index]["media"],
+                        );
+                      },
+                    );
+                  },
+                )
               ],
             );
           },
