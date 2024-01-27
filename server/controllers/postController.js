@@ -12,7 +12,7 @@ postController.addPost = async (req, res) => {
 
   const newPost = await postModel.create({
     caption: caption,
-    media: `${req.protocol}://${req.headers.host}/uploads/${req.file.originalname}`,
+    media: `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`,
     authorId: userId,
   });
 
