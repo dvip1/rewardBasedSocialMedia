@@ -16,7 +16,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<http.Response> getPosts() async {
     String token = await SharedPref.getToken();
     Map<String, String> header = {"Authorization": "Bearer $token"};
-    return http.get(Uri.parse("http://192.168.78.217:5000/post/myposts"),
+    return http.get(Uri.parse("http://192.168.137.1:5000/post/myposts"),
         headers: header);
   }
 
@@ -41,64 +41,18 @@ class _MyHomePageState extends State<MyHomePage> {
             )),
       ),
       body: SingleChildScrollView(
-          child: Column(
-        children: [
-          Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  LinearPercentIndicator(
-                      barRadius: const Radius.circular(20),
-                      width: MediaQuery.of(context).size.width - 120,
-                      animation: true,
-                      lineHeight: 20.0,
-                      animationDuration: 2000,
-                      percent: 0.9,
-                      center: const Text("90.0%"),
-                      progressColor: Theme.of(context).colorScheme.secondary),
-                  const Text(
-                    "LV:100",
-                    style: TextStyle(fontSize: 20),
-                  )
-                ],
-              )),
-          PostWidget(
+          child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return PostWidget(
             authorId: 'trdt ',
             timestamps: '21:23',
             media:
-                'http://192.168.78.217:5000/uploads/1706322507869-332083018.mp4',
+                'http://192.168.137.1:5000/uploads/1706322507869-332083018.mp4',
             caption: 'this is a test caption',
-          ),
-          PostWidget(
-            authorId: 'ebruifsd',
-            timestamps: '01:23',
-            media:
-                'http://192.168.78.217:5000/uploads/1706322495652-177857509.mp4',
-            caption: 'also new cew caption',
-          ),
-          PostWidget(
-            authorId: 'ebruifsd',
-            timestamps: '01:23',
-            media:
-                'http://192.168.78.217:5000/uploads/1706322495652-177857509.mp4',
-            caption: 'also new cew caption',
-          ),
-          PostWidget(
-            authorId: 'ebruifsd',
-            timestamps: '01:23',
-            media:
-                'http://192.168.78.217:5000/uploads/1706327438458-92032677.mp4',
-            caption: 'also new cew caption',
-          ),
-          PostWidget(
-            authorId: 'ebruifsd',
-            timestamps: '01:23',
-            media:
-                'http://192.168.78.217:5000/uploads/1706327449030-761753763.mp4',
-            caption: 'also new cew caption',
-          ),
-        ],
+          );
+        },
       )),
     );
   }

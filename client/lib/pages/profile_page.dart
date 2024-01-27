@@ -10,7 +10,7 @@ class ProfilePage extends StatelessWidget {
   Future<http.Response> getData() async {
     String token = await SharedPref.getToken();
     Map<String, String> header = {"Authorization": "Bearer $token"};
-    return http.get(Uri.parse("http://192.168.78.217:5000/user/myprofile"),
+    return http.get(Uri.parse("http://192.168.137.1:5000/user/myprofile"),
         headers: header);
   }
 
