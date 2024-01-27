@@ -9,23 +9,27 @@ class PostWidget extends StatefulWidget {
 }
 
 class _PostWidgetState extends State<PostWidget> {
-  late VideoPlayerController _controller;
-  late Future<void> _initializeVideoPlayerFuture;
+  late VideoPlayerController _videoPlayerController;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.contentUri(Uri.parse(
-        "http://192.168.78.217:5000/uploads/1706317507161-887715023.mp4"));
 
-    _controller.setLooping(true);
-    _initializeVideoPlayerFuture = _controller.initialize();
+    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
+        "http://192.168.78.217:5000/uploads/1706317507161-887715023.mp4"))
+      ..initialize().then((value) {
+        setState(() {
+          _videoPlayerController.play();
+        });
+      });
+    _videoPlayerController.setLooping(true);
+    _videoPlayerController.initialize().then((_) => setState(() {}));
+    _videoPlayerController.play();
   }
 
   @override
   void dispose() {
-    // Ensure the controller is disposed when the widget is disposed
-    _controller.dispose();
+    _videoPlayerController.dispose();
     super.dispose();
   }
 
@@ -78,18 +82,14 @@ class _PostWidgetState extends State<PostWidget> {
         const SizedBox(
           height: 18,
         ),
-        FutureBuilder(
-          future: _initializeVideoPlayerFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
+        AspectRatio(
+          aspectRatio: _videoPlayerController.value.aspectRatio,
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: <Widget>[
+              VideoPlayer(_videoPlayerController),
+            ],
+          ),
         ),
         // Card(
         //   child: SizedBox(
