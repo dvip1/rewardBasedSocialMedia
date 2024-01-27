@@ -67,10 +67,12 @@ class _GuildsPageState extends State<GuildsPage> {
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   return CommunityWidget(
-                    name: "ouweboe",
-                    desc: "mbecc",
-                    image: "dubduwo",
-                  );
+                      id: data[index]["_id"],
+                      name: data[index]["name"],
+                      desc: data[index]["description"],
+                      image: data[index]["name"],
+                      members: data[index]["members"],
+                      tasks: data[index]["tasks"]);
                 },
               );
             } else {

@@ -1,12 +1,23 @@
+import 'dart:math';
+
 import 'package:client/pages/community_page.dart';
 import 'package:flutter/material.dart';
 
 class CommunityWidget extends StatefulWidget {
+  String id;
   String name;
   String image;
   String desc;
+  List members;
+  List tasks;
   CommunityWidget(
-      {super.key, required this.name, required this.desc, required this.image});
+      {super.key,
+      required this.id,
+      required this.name,
+      required this.desc,
+      required this.image,
+      required this.members,
+      required this.tasks});
 
   @override
   State<CommunityWidget> createState() => _CommunityWidgetState();
@@ -20,7 +31,14 @@ class _CommunityWidgetState extends State<CommunityWidget> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const CommunityPage(),
+              builder: (context) => CommunityPage(
+                id: widget.id,
+                name: widget.name,
+                desc: widget.desc,
+                members: widget.members,
+                tasks: widget.tasks,
+                image: "",
+              ),
             ));
       },
       child: Card(

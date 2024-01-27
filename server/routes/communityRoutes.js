@@ -11,9 +11,9 @@ router.route("/community")
   .get(communityController.getAllCommunity)
   .put(authorize, communityController.addMember)
  
-router.route('/community/createTask')
+router.route('/tasks')
     .post(authorize, communityController.createTask)
-
+    
 router.route("/community/:communityId")
   .get(communityController.getCommunity)
 

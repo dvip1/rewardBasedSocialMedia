@@ -1,31 +1,49 @@
+import 'dart:convert';
+
 import 'package:client/Components/task.dart';
+import 'package:client/services/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:http/http.dart' as http;
 
 class CommunityPage extends StatelessWidget {
-  const CommunityPage({super.key});
+  String id;
+  String name;
+  String image;
+  String desc;
+  List members;
+  List tasks;
+  CommunityPage(
+      {super.key,
+      required this.id,
+      required this.name,
+      required this.desc,
+      required this.image,
+      required this.members,
+      required this.tasks});
+
+  Future<http.Response> getTasks() async {
+    String token = await SharedPref.getToken();
+    Map<String, String> header = {"Authorization": "Bearer $token"};
+    return http.get(
+        Uri.parse("http://192.168.78.217:5000/community/mycommunities"),
+        headers: header);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          name,
+          style: const TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 16, top: 8, right: 16),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text(
-              "Guild Name",
-              style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
-            ),
-            const Text(
-              "this is a test community description to check.",
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
+          child: Column(children: [
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: LinearPercentIndicator(
@@ -57,22 +75,12 @@ class CommunityPage extends StatelessWidget {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 24, bottom: 8),
-              child: Text(
-                "Quests",
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
-              ),
-            ),
-            GridView.builder(
-              shrinkWrap: true,
-              itemCount: 10,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
-              itemBuilder: (context, index) {
-                return const TaskWidget();
-              },
-            )
+            TaskWidget(
+                id: "232", name: "test task", des: "this task must be done"),
+            TaskWidget(
+                id: "232",
+                name: "test task 2 ",
+                des: "this is an import task by guilt")
           ]),
         ),
       ),
