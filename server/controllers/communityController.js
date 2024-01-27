@@ -122,4 +122,14 @@ communityController.createTask = async (req, res) => {
   }
 };
 
+communityController.userCommunities = async (req, res) => {
+  const userId = req.user.id;
+  const user=await userModel.findById(userId)
+  const communities = await communityModel.find({ _id: { $in: user.communities } }).lean().exec();
+  if (!communities) res.status(404).json({ message: "communities not found" });
+  
+  res.json(communities);
+
+}
+
 module.exports = communityController;
