@@ -19,7 +19,7 @@ connectionController.getUserData = async (req, res) => {
     const connectionId = connectionUser._id;
     const connectionUserName = connectionUser.username;
     console.log(connectionId, connectionUserName);
-    connectionUserData = {
+    const connectionUserData = {
       connectionId,
       connectionUserName,
     };
