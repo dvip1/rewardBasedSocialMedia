@@ -53,7 +53,7 @@ class CommunityPage extends StatelessWidget {
                   animationDuration: 2000,
                   percent: 0.9,
                   center: const Text("90.0%"),
-                  progressColor: Theme.of(context).colorScheme.secondary),
+                  progressColor: Theme.of(context).colorScheme.inversePrimary),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 18, bottom: 8),
@@ -61,8 +61,14 @@ class CommunityPage extends StatelessWidget {
                 children: [
                   Expanded(
                       child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                    ),
                     onPressed: () {},
-                    child: const Text("Join Guild"),
+                    child: const Text(
+                      "Join Guild",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   )),
                   const SizedBox(
                     width: 12,
@@ -70,7 +76,12 @@ class CommunityPage extends StatelessWidget {
                   Expanded(
                       child: ElevatedButton(
                     onPressed: () {},
-                    child: const Text("Members"),
+                    child: Text(
+                      "Members",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
+                    ),
                   )),
                 ],
               ),
@@ -88,6 +99,7 @@ class CommunityPage extends StatelessWidget {
       floatingActionButton:
           ExpandableFab(type: ExpandableFabType.up, distance: 80, children: [
         FloatingActionButton.small(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           onPressed: () {
             showDialog(
               context: context,
@@ -106,6 +118,7 @@ class CommunityPage extends StatelessWidget {
           child: const Icon(Icons.group),
         ),
         FloatingActionButton.small(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           onPressed: () {
             showDialog(
               context: context,

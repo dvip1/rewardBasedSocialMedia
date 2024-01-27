@@ -55,7 +55,8 @@ class _PostWidgetState extends State<PostWidget> {
             Expanded(
                 child: Row(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   radius: 28,
                   child: Text("T"),
                 ),
@@ -102,28 +103,42 @@ class _PostWidgetState extends State<PostWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             ElevatedButton.icon(
-                label: const Text("28 likes"),
+                label: Text(
+                  "28 likes",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                  ),
+                ),
                 onPressed: () {},
-                icon: const Icon(
+                icon: Icon(
+                  color: Theme.of(context).colorScheme.inversePrimary,
                   Icons.favorite,
                   size: 32,
                 )),
             ElevatedButton.icon(
-                label: Text("${widget.dislikes} dislikes"),
+                label: Text(
+                  "${widget.dislikes} dislikes",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                  ),
+                ),
                 onPressed: () {},
-                icon: const Icon(
+                icon: Icon(
+                  color: Theme.of(context).colorScheme.inversePrimary,
                   Icons.heart_broken,
                   size: 32,
                 )),
             IconButton(
                 onPressed: () {},
-                icon: const Icon(
+                icon: Icon(
+                  color: Theme.of(context).colorScheme.inversePrimary,
                   Icons.comment,
                   size: 32,
                 )),
             IconButton(
                 onPressed: () {},
-                icon: const Icon(
+                icon: Icon(
+                  color: Theme.of(context).colorScheme.inversePrimary,
                   Icons.share,
                   size: 32,
                 )),

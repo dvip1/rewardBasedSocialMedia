@@ -5,7 +5,7 @@ ThemeData lightTheme = ThemeData(
     colorScheme: ColorScheme.light(
         background: Colors.grey.shade300,
         primary: Colors.grey.shade200,
-        secondary: Colors.amber.shade400,
-        inversePrimary: Colors.amber.shade600),
+        secondary: Colors.deepPurple.shade400,
+        inversePrimary: Colors.deepPurple.shade600),
     textTheme: ThemeData.light().textTheme.apply(bodyColor: Colors.grey[800]),
     disabledColor: Colors.black);

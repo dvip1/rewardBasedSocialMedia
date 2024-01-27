@@ -85,20 +85,28 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 const SizedBox(height: 5),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("Forgot Password?"),
+                    Text("Forgot Password?",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        )),
                   ],
                 ),
                 const SizedBox(height: 20),
                 isloading
                     ? const CircularProgressIndicator()
                     : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.inversePrimary,
+                        ),
                         onPressed: () {
                           signup();
                         },
-                        child: const Text("Continue"),
+                        child: const Text("Continue",
+                            style: TextStyle(color: Colors.white)),
                       ),
                 const SizedBox(height: 20),
                 Padding(

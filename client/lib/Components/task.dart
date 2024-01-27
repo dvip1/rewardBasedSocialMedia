@@ -29,7 +29,10 @@ class _TaskWidgetState extends State<TaskWidget> {
                     onPressed: () {
                       Navigator.pop(dialogContext);
                     },
-                    child: const Text("No")),
+                    child: Text("No",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        ))),
                 TextButton(
                     onPressed: () {
                       Navigator.pop(dialogContext);
@@ -39,13 +42,17 @@ class _TaskWidgetState extends State<TaskWidget> {
                         },
                       ));
                     },
-                    child: const Text("Yes"))
+                    child: Text("Yes",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        )))
               ],
             );
           },
         );
       },
       child: Card(
+        color: Theme.of(context).colorScheme.secondary,
         child: ListTile(
           title: Text(
             widget.name,

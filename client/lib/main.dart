@@ -1,7 +1,7 @@
 import 'package:client/services/authenticator.dart';
 
-// import 'package:client/theme/dark_mode.dart';
-// import 'package:client/theme/light_mode.dart';
+import 'package:client/theme/dark_mode.dart';
+import 'package:client/theme/light_mode.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,11 +15,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Level Up',
-        // theme: lightTheme,
-        // darkTheme: darkTheme,
+        theme: lightTheme,
+        darkTheme: darkTheme,
         home: Authenticator());
   }
 }
