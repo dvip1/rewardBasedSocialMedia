@@ -32,9 +32,6 @@ class _PostWidgetState extends State<PostWidget> {
     _videoPlayerController =
         VideoPlayerController.networkUrl(Uri.parse(widget.media))
           ..initialize().then((value) {
-            print('Video initialization successful');
-            print('Video duration: ${_videoPlayerController.value.duration}');
-            print('Video size: ${_videoPlayerController.value.size}');
             setState(() {
               _videoPlayerController.play();
             });
@@ -99,25 +96,21 @@ class _PostWidgetState extends State<PostWidget> {
         ),
         AspectRatio(
           aspectRatio: _videoPlayerController.value.aspectRatio,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: <Widget>[
-              VideoPlayer(_videoPlayerController),
-            ],
-          ),
+          child: VideoPlayer(_videoPlayerController),
         ),
+        const SizedBox(height: 18),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             ElevatedButton.icon(
-                label: Text(widget.likes),
+                label: const Text("28 likes"),
                 onPressed: () {},
                 icon: const Icon(
                   Icons.favorite,
                   size: 32,
                 )),
             ElevatedButton.icon(
-                label: Text(widget.likes),
+                label: Text("${widget.dislikes} dislikes"),
                 onPressed: () {},
                 icon: const Icon(
                   Icons.heart_broken,
