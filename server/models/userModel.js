@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
-      unique:true
+      unique: true,
     },
     profileImage: String,
     email: {
@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
     likedPosts: [String],
     connections: [String],
     badges: [String],
-    communities: [ mongoose.Schema.Types.ObjectId],
+    communities: [mongoose.Schema.Types.ObjectId],
   },
   { timestamps: true }
 );
