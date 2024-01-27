@@ -24,49 +24,57 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: SizedBox(
-          height: 75,
-          width: 75,
-          child: FloatingActionButton(
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return const NewPostWidget();
-                  },
-                ));
+      floatingActionButton: SizedBox(
+        height: 75,
+        width: 75,
+        child: FloatingActionButton(
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return const NewPostWidget();
               },
-              child: const Icon(
-                Icons.add,
-                color: Colors.white,
-              )),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-          child: FutureBuilder(
-            future: getPosts(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.active) {
-                return const CircularProgressIndicator();
-              } else if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              } else {
-                var data = jsonDecode(snapshot.data!.body) as List;
-                return ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (context, index) {
-                    return PostWidget(
-                        authorId: data[index]["user"],
-                        timestamps: data[index]["user"],
-                        media: data[index]["media"],
-                        caption: data[index]["caption"],
-                        likes: "${data[index]["likes"]}",
-                        dislikes: "2");
-                  },
-                );
-              }
-            },
+            ));
+          },
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
           ),
-        ));
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+        child: FutureBuilder(
+          future: getPosts(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            } else if (snapshot.data == null) {
+              return const Center(child: Text("No data available"));
+            } else {
+              var data = jsonDecode(snapshot.data!.body) as List;
+              if (data.isEmpty) {
+                return const Text("No Post Found");
+              }
+              return ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return PostWidget(
+                    authorId: data[index]["user"],
+                    timestamps: data[index]["user"],
+                    media: data[index]["media"],
+                    caption: data[index]["caption"],
+                    likes: "${data[index]["likes"]}",
+                    dislikes: "2",
+                  );
+                },
+              );
+            }
+          },
+        ),
+      ),
+    );
   }
 }

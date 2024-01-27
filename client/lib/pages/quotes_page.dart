@@ -7,35 +7,21 @@ class QuotesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-            padding: const EdgeInsets.only(left: 16, top: 8, right: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 34, bottom: 16),
-                  child: Text(
-                    "Quests",
-                    style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                GridView.builder(
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: (context, index) {
-                    return TaskWidget(
-                      id: '',
-                      name: '',
-                      des: '',
-                    );
-                  },
-                )
-              ],
-            )),
-      ),
+      body: Padding(
+          padding: const EdgeInsets.only(left: 16, top: 8, right: 16),
+          child: GridView.builder(
+            shrinkWrap: true,
+            itemCount: 1,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2),
+            itemBuilder: (context, index) {
+              return TaskWidget(
+                id: '',
+                name: 'PushUps',
+                des: '78k peoples have completed this.',
+              );
+            },
+          )),
     );
   }
 }

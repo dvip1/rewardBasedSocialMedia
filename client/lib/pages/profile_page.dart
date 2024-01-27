@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:client/Components/profile_post.dart';
+import 'package:client/Components/progressbar.dart';
 import 'package:client/services/shared_pref.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -120,6 +121,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ],
                 ),
+                const SizedBox(
+                  height: 18,
+                ),
+                Progressbar(points: body["karmas"]),
                 const SizedBox(
                   height: 18,
                 ),
