@@ -1,6 +1,7 @@
-import 'package:client/pages/activities_page.dart';
+import 'package:client/pages/guilds_page.dart';
 import 'package:client/pages/homepage.dart';
 import 'package:client/pages/profile_page.dart';
+import 'package:client/pages/quotes_page.dart';
 import 'package:flutter/material.dart';
 
 class Wrapper extends StatefulWidget {
@@ -13,8 +14,9 @@ class Wrapper extends StatefulWidget {
 class _WrapperState extends State<Wrapper> {
   int currentPageIndex = 0;
   List<Widget> pages = [
-    MyHomePage(),
-    const ActivitiesPage(),
+    const MyHomePage(),
+    const QuotesPage(),
+    const GuildsPage(),
     const ProfilePage(),
   ];
   @override
@@ -48,8 +50,13 @@ class _WrapperState extends State<Wrapper> {
               label: 'Home',
             ),
             NavigationDestination(
+              selectedIcon: Icon(Icons.format_quote_sharp),
+              icon: Icon(Icons.format_quote_sharp),
+              label: 'Quots',
+            ),
+            NavigationDestination(
               icon: Icon(Icons.local_activity),
-              label: 'Activities',
+              label: 'Guilds',
             ),
             NavigationDestination(
               icon: Icon(Icons.person),

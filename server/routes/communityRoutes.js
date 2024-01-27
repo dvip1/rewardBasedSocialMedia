@@ -3,7 +3,7 @@ const router = require("express").Router();
 
 const authorize = require("../middleware/authorize");
 
-router.route('/community/mycommunities')
+router.route('/mycommunities')
     .get(authorize, communityController.userCommunities)
     
 router.route("/community")
