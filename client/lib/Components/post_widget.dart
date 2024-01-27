@@ -1,7 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
-class PostWidget extends StatelessWidget {
+class PostWidget extends StatefulWidget {
   const PostWidget({super.key});
+
+  @override
+  State<PostWidget> createState() => _PostWidgetState();
+}
+
+class _PostWidgetState extends State<PostWidget> {
+  late VideoPlayerController _controller;
+  late Future<void> _initializeVideoPlayerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.contentUri(Uri.parse(
+        "http://192.168.78.217:5000/uploads/1706317507161-887715023.mp4"));
+
+    _controller.setLooping(true);
+    _initializeVideoPlayerFuture = _controller.initialize();
+  }
+
+  @override
+  void dispose() {
+    // Ensure the controller is disposed when the widget is disposed
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +78,25 @@ class PostWidget extends StatelessWidget {
         const SizedBox(
           height: 18,
         ),
-        Card(
-          child: SizedBox(
-            height: 350,
-            width: MediaQuery.of(context).size.width,
-          ),
+        FutureBuilder(
+          future: _initializeVideoPlayerFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: VideoPlayer(_controller),
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
         ),
+        // Card(
+        //   child: SizedBox(
+        //     height: 350,
+        //     width: MediaQuery.of(context).size.width,
+        //   ),
+        // ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

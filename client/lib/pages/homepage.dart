@@ -55,9 +55,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               )),
           const PostWidget(),
-          const PostWidget(),
-          const PostWidget(),
-          const PostWidget(),
+          // const PostWidget(),
+          // const PostWidget(),
+          // const PostWidget(),
         ],
       )),
     );
