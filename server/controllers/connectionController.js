@@ -25,6 +25,7 @@ connectionController.getUserData = async (req, res) => {
     };
     res.status(200).json(connectionUserData);
   }
+  res.status(500).json({ message: "No user found with that username :(" });
 };
 
 connectionController.addConnection = async (req, res) => {
