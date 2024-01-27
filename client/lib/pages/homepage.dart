@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:client/Components/post_widget.dart';
 import 'package:client/pages/new_post.dart';
+import 'package:client/services/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:http/http.dart' as http;
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -11,6 +15,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Future<http.Response> getPosts() async {
+    String token = await SharedPref.getToken();
+    Map<String, String> header = {"Authorization": "Bearer $token"};
+    return http.get(Uri.parse("http://192.168.78.217:5000/post/mypost"),
+        headers: header);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +65,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               )),
-          const PostWidget(),
+
+          FutureBuilder(
+            future: getPosts(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasData) {
+                var data = jsonDecode(snapshot.data!.body) as List;
+                ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    var obj = data.elementAt(index);
+                    return PostWidget(
+                        authorId: obj["authorId"],
+                        timestamps: obj["timestamps"],
+                        media: obj["media"],
+                        caption: obj["caption"]);
+                  },
+                );
+              }
+              return Center(
+                child: Text(snapshot.error.toString()),
+              );
+            },
+          ),
           // const PostWidget(),
           // const PostWidget(),
           // const PostWidget(),

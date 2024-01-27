@@ -19,4 +19,6 @@ router.route("/like/:postId").post(authorize, postController.addLike);
 
 router.route("/user/:userId").get(postController.getUserPost);
 
+router.route("/myposts").get(postController.myPosts);
+
 module.exports = router;

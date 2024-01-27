@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class PostWidget extends StatefulWidget {
-  const PostWidget({super.key});
+  String authorId;
+
+  String timestamps;
+
+  String media;
+
+  String caption;
+
+  PostWidget(
+      {super.key,
+      required this.authorId,
+      required this.timestamps,
+      required this.media,
+      required this.caption});
 
   @override
   State<PostWidget> createState() => _PostWidgetState();
@@ -15,13 +28,13 @@ class _PostWidgetState extends State<PostWidget> {
   void initState() {
     super.initState();
 
-    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
-        "http://192.168.78.217:5000/uploads/1706317507161-887715023.mp4"))
-      ..initialize().then((value) {
-        setState(() {
-          _videoPlayerController.play();
-        });
-      });
+    _videoPlayerController =
+        VideoPlayerController.networkUrl(Uri.parse(widget.media))
+          ..initialize().then((value) {
+            setState(() {
+              _videoPlayerController.play();
+            });
+          });
     _videoPlayerController.setLooping(true);
     _videoPlayerController.initialize().then((_) => setState(() {}));
     _videoPlayerController.play();
@@ -40,25 +53,25 @@ class _PostWidgetState extends State<PostWidget> {
       child: Column(children: [
         Row(
           children: [
-            const Expanded(
+            Expanded(
                 child: Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 28,
                   child: Text("T"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 12,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "username",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                      widget.authorId,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 24),
                     ),
-                    Text("12/3/24 at 12:12")
+                    Text(widget.timestamps)
                   ],
                 )
               ],
@@ -75,8 +88,7 @@ class _PostWidgetState extends State<PostWidget> {
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width - 56,
-          child: const Text(
-              "this is a long cation to display caption diufw fw fkjdfb sfj fhfwf bsfusf shhfw bf",
+          child: Text(widget.caption,
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
         ),
         const SizedBox(

@@ -48,6 +48,18 @@ postController.getUserPost = async (req, res) => {
   res.json(posts);
 };
 
+postController.myPosts = async (req, res) => {
+  const userId = req.user.id;
+  if (!mongoose.isValidObjectId(userId))
+    return res.status(404).json({ message: "userId is not valid" });
+  const posts = await postModel
+    .find({ authorId: userId })
+    .limit(20)
+    .lean()
+    .exec();
+  res.json(posts);
+};
+
 postController.deletePost = async (req, res) => {
   const postId = req.params.postId;
   if (!mongoose.isValidObjectId(postId))
