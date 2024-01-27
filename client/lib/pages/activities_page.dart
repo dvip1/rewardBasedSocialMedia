@@ -1,9 +1,14 @@
 import 'package:client/Components/community.dart';
 import 'package:client/Components/task.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class ActivitiesPage extends StatelessWidget {
   const ActivitiesPage({super.key});
+
+  void getGuilds() async {
+    await http.get(Uri.parse(""));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class ActivitiesPage extends StatelessWidget {
                 style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold),
               ),
             ),
-            Container(
+            SizedBox(
               height: 400,
               child: ListView.builder(
                 shrinkWrap: true,
@@ -52,6 +57,10 @@ class ActivitiesPage extends StatelessWidget {
             )
           ],
         )),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
       ),
     );
   }
