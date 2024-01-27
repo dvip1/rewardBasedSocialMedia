@@ -24,12 +24,12 @@ class _NewPostWidgetState extends State<NewPostWidget> {
       String token = await SharedPref.getToken();
       var client = http.Client();
       var request = http.MultipartRequest(
-          'POST', Uri.parse('http://192.168.137.1:5000/post/post'));
+          'post', Uri.parse('http://localhost:5000/post/post'));
 
       request.headers.addAll({"Authorization": "Bearer $token"});
       request.fields["caption"] = captionController.text;
-      request.files.add(
-          await http.MultipartFile.fromPath("content-media", file!.path ?? ""));
+      request.files
+          .add(http.MultipartFile.fromString("content-media", file!.name));
       var response = await client.send(request);
 
       client.close();
@@ -45,9 +45,10 @@ class _NewPostWidgetState extends State<NewPostWidget> {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
 
       if (result != null) {
-        setState(() {
-          file = result.files.first;
-        });
+        file = result.files[0];
+      } else {
+        print(
+            "+++++++++++++++++++++++++++++++++++++nullllllllllllllllllllllllllllllllll");
       }
     }
 
@@ -56,9 +57,10 @@ class _NewPostWidgetState extends State<NewPostWidget> {
         title: const Text("create post"),
         actions: [
           IconButton(
-            onPressed: file != null ? () => post() : null,
-            icon: const Icon(Icons.check),
-          )
+              onPressed: () {
+                post();
+              },
+              icon: const Icon(Icons.check))
         ],
       ),
       body: Padding(
@@ -73,7 +75,7 @@ class _NewPostWidgetState extends State<NewPostWidget> {
               const SizedBox(
                 height: 18,
               ),
-              Text('Selected Files: ${file?.path ?? "No file selected"}'),
+              Text('Selected Files: ${file?.name}'),
               const SizedBox(
                 height: 18,
               ),

@@ -10,10 +10,11 @@ postController.addPost = async (req, res) => {
   if (!mongoose.isValidObjectId(userId))
     return res.status(404).json({ message: "userId is not valid" });
 
+  const user = await userModel.findOne({_id:userId}).select("username").lean().exec()
   const newPost = await postModel.create({
     caption: caption,
     media: `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`,
-    authorId: userId,
+    authorId: user.username,
   });
 
   await userModel.findByIdAndUpdate(

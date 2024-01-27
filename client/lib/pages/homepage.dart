@@ -1,8 +1,9 @@
+import 'dart:convert';
+
 import 'package:client/Components/post_widget.dart';
 import 'package:client/pages/new_post.dart';
 import 'package:client/services/shared_pref.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:http/http.dart' as http;
 
 class MyHomePage extends StatefulWidget {
@@ -16,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<http.Response> getPosts() async {
     String token = await SharedPref.getToken();
     Map<String, String> header = {"Authorization": "Bearer $token"};
-    return http.get(Uri.parse("http://192.168.137.1:5000/post/myposts"),
+    return http.get(Uri.parse("http://localhost:5000/post/myposts"),
         headers: header);
   }
 
@@ -41,17 +42,29 @@ class _MyHomePageState extends State<MyHomePage> {
             )),
       ),
       body: SingleChildScrollView(
-          child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return PostWidget(
-            authorId: 'trdt ',
-            timestamps: '21:23',
-            media:
-                'http://192.168.137.1:5000/uploads/1706322507869-332083018.mp4',
-            caption: 'this is a test caption',
-          );
+          child: FutureBuilder(
+        future: getPosts(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasData) {
+            List data = jsonDecode(snapshot.data!.body);
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                return PostWidget(
+                  authorId: data[index]["authorId"],
+                  timestamps: data[index]["createdAt"],
+                  media: data[index]["media"],
+                  caption: data[index]["caption"],
+                  likes: "${data[index]["likes"]}",
+                  dislikes: "2",
+                );
+              },
+            );
+          }
+          return Text(snapshot.error.toString());
         },
       )),
     );

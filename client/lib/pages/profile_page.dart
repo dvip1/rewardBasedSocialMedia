@@ -10,7 +10,7 @@ class ProfilePage extends StatelessWidget {
   Future<http.Response> getData() async {
     String token = await SharedPref.getToken();
     Map<String, String> header = {"Authorization": "Bearer $token"};
-    return http.get(Uri.parse("http://192.168.137.1:5000/user/myprofile"),
+    return http.get(Uri.parse("http://localhost:5000/user/myprofile"),
         headers: header);
   }
 
@@ -59,13 +59,13 @@ class ProfilePage extends StatelessWidget {
                   const SizedBox(
                     height: 24,
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         children: [
                           Text("KARMAS"),
-                          Text("12",
+                          Text(body["karmas"],
                               style: TextStyle(
                                   fontSize: 32, fontWeight: FontWeight.bold)),
                         ],
@@ -73,7 +73,7 @@ class ProfilePage extends StatelessWidget {
                       Column(
                         children: [
                           Text("STREAKS"),
-                          Text("12",
+                          Text(body["streaks"],
                               style: TextStyle(
                                   fontSize: 32, fontWeight: FontWeight.bold)),
                         ],
@@ -81,7 +81,7 @@ class ProfilePage extends StatelessWidget {
                       Column(
                         children: [
                           Text("CONNECTION"),
-                          Text("12",
+                          Text(body["karmas"],
                               style: TextStyle(
                                   fontSize: 32, fontWeight: FontWeight.bold)),
                         ],
@@ -89,7 +89,7 @@ class ProfilePage extends StatelessWidget {
                       Column(
                         children: [
                           Text("POSTS"),
-                          Text("12",
+                          Text("23",
                               style: TextStyle(
                                   fontSize: 32, fontWeight: FontWeight.bold)),
                         ],

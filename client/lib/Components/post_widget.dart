@@ -3,19 +3,20 @@ import 'package:video_player/video_player.dart';
 
 class PostWidget extends StatefulWidget {
   String authorId;
-
   String timestamps;
-
   String media;
-
   String caption;
+  String likes;
+  String dislikes;
 
   PostWidget(
       {super.key,
       required this.authorId,
       required this.timestamps,
       required this.media,
-      required this.caption});
+      required this.caption,
+      required this.likes,
+      required this.dislikes});
 
   @override
   State<PostWidget> createState() => _PostWidgetState();
@@ -89,7 +90,8 @@ class _PostWidgetState extends State<PostWidget> {
         SizedBox(
           width: MediaQuery.of(context).size.width - 56,
           child: Text(widget.caption,
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
+              style:
+                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
         ),
         const SizedBox(
           height: 18,
@@ -103,24 +105,18 @@ class _PostWidgetState extends State<PostWidget> {
             ],
           ),
         ),
-        // Card(
-        //   child: SizedBox(
-        //     height: 350,
-        //     width: MediaQuery.of(context).size.width,
-        //   ),
-        // ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             ElevatedButton.icon(
-                label: const Text("100 likes"),
+                label: Text(widget.likes),
                 onPressed: () {},
                 icon: const Icon(
                   Icons.favorite,
                   size: 32,
                 )),
             ElevatedButton.icon(
-                label: const Text("10 dislikes"),
+                label: Text(widget.likes),
                 onPressed: () {},
                 icon: const Icon(
                   Icons.heart_broken,
