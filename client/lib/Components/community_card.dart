@@ -51,7 +51,8 @@ class _CommunityWidgetState extends State<CommunityWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
-                  leading: const CircleAvatar(
+                  leading: CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     radius: 34,
                     child: Text("D"),
                   ),

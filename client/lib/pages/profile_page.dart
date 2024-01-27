@@ -62,17 +62,24 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Text(
                           body["username"],
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 28, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           body["email"],
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400),
+                          style: TextStyle(
+                              color:
+                                  Theme.of(context).colorScheme.inversePrimary,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400),
                         )
                       ],
                     ),
-                    const CircleAvatar(radius: 32, child: Text("ifb")
+                    CircleAvatar(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        radius: 32,
+                        child: Text("ifb")
                         // Image(
                         //   image: NetworkImage(
                         //     body["profileImage"],
@@ -128,16 +135,47 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 18,
                 ),
+                if ((body["karmas"] / 100).floor() != 0)
+                  Container(
+                    height: 120,
+                    child: ListView.builder(
+                      itemCount: (body["karmas"] / 100).floor(),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image(
+                            image: AssetImage("assets/badges/${index + 1}.jpg"),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 Row(
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                          onPressed: () {}, child: const Text("Edit Profile")),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary,
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            "Edit Profile",
+                            style: TextStyle(color: Colors.white),
+                          )),
                     ),
                     const SizedBox(width: 20),
                     Expanded(
                       child: ElevatedButton(
-                          onPressed: () {}, child: const Text("Connect")),
+                          onPressed: () {},
+                          child: Text(
+                            "Connect",
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                          )),
                     ),
                   ],
                 ),

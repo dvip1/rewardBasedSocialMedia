@@ -15,10 +15,12 @@ class QuotesPage extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2),
             itemBuilder: (context, index) {
-              return TaskWidget(
-                id: '',
-                name: 'PushUps',
-                des: '78k peoples have completed this.',
+              return Container(
+                child: TaskWidget(
+                  id: '',
+                  name: 'PushUps',
+                  des: '78k peoples have completed this.',
+                ),
               );
             },
           )),

@@ -84,6 +84,7 @@ class _GuildsPageState extends State<GuildsPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         onPressed: () {
           showDialog(
             context: context,
@@ -108,7 +109,12 @@ class _GuildsPageState extends State<GuildsPage> {
                             addGuilds(nameCont.text, desCont.text);
                             Navigator.pop(dialofContext);
                           },
-                          child: const Text("Create"))
+                          child: Text("Create",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary,
+                              )))
                 ],
               );
             },

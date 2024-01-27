@@ -85,7 +85,11 @@ class _NewPostWidgetState extends State<NewPostWidget> {
                     onPressed: () {
                       getFile();
                     },
-                    child: const Text("select video")),
+                    child: Text("select video",
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ))),
               )
             ],
           ),

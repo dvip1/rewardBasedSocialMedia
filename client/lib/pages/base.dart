@@ -50,9 +50,8 @@ class _WrapperState extends State<Wrapper> {
               label: 'Home',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Icons.format_quote_sharp),
-              icon: Icon(Icons.format_quote_sharp),
-              label: 'Quots',
+              icon: Icon(Icons.shield),
+              label: 'Quests',
             ),
             NavigationDestination(
               icon: Icon(Icons.local_activity),
