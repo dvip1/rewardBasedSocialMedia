@@ -25,12 +25,21 @@ const communitySchema = new mongoose.Schema({
     ,
     tasks: [
         {
+            title: {
+                type: String,
+            },
             description: {
                 type: String,
             },
             deadline: {
                 type: Date
             },
+            posts: [
+                {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Post'
+                }
+            ]
         }
     ]
 }, { timestamps: true })
