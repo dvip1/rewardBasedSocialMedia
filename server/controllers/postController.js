@@ -5,61 +5,29 @@ const communityModels = require("../models/communityModels");
 
 const postController = {};
 
-postController.addPost = async (req, res) => {
-  try {
-    const { caption, communityId, taskId } = req.body;
-    const userId = req.user.id;
 
-    if (!mongoose.isValidObjectId(userId)) {
-      return res.status(400).json({ message: 'Invalid userId' });
-    }
 
-    const user = await userModel.findOne({ _id: userId }).select('username').lean().exec();
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
 
-    const newPost = await postModel.create({
-      caption: caption,
-      media: `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`,
-      user: user.username,
-    });
 
-    // Update the user's posts array
-    await userModel.findByIdAndUpdate(
-      { _id: userId },
-      {
-        $push: {
-          posts: newPost._id,
-        },
-      }
-    );
 
-    // If communityId and taskId are provided, update the post array in the task
-    if (communityId && taskId) {
-      const community = await communityModels.findById(communityId);
 
-      if (!community) {
-        return res.status(404).json({ message: 'Community not found' });
-      }
 
-      const taskIndex = community.tasks.findIndex(task => task._id == taskId);
 
-      if (taskIndex !== -1) {
-        community.tasks[taskIndex].posts.push(newPost._id);
-        await community.save();
-      } else {
-        return res.status(404).json({ message: 'Task not found in the community' });
-      }
-    }
 
-    res.json(newPost);
-  } catch (error) {
-    console.error('Error creating post:', error);
-    res.status(500).json({ message: 'Failed to create post', error: error.message });
-  }
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 postController.getPost = async (req, res) => {
   const postId = req.params.postId;
