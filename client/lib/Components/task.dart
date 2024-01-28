@@ -56,9 +56,9 @@ class _TaskWidgetState extends State<TaskWidget> {
         child: ListTile(
           title: Text(
             widget.name,
-            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          subtitle: Text(widget.des, style: const TextStyle(fontSize: 16)),
+          subtitle: Text(widget.des, style: const TextStyle(fontSize: 12)),
         ),
       ),
     );

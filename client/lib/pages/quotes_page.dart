@@ -8,19 +8,15 @@ class QuotesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-          padding: const EdgeInsets.only(left: 16, top: 8, right: 16),
-          child: GridView.builder(
+          padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
+          child: ListView.builder(
             shrinkWrap: true,
             itemCount: 1,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2),
             itemBuilder: (context, index) {
-              return Container(
-                child: TaskWidget(
-                  id: '',
-                  name: 'PushUps',
-                  des: '78k peoples have completed this.',
-                ),
+              return TaskWidget(
+                id: '',
+                name: 'PushUps',
+                des: '78k peoples have completed this.',
               );
             },
           )),
