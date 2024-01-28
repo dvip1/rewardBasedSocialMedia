@@ -24,7 +24,7 @@ class _NewPostWidgetState extends State<NewPostWidget> {
       String token = await SharedPref.getToken();
       var client = http.Client();
       var request = http.MultipartRequest(
-          'post', Uri.parse('http://192.168.78.217:5000/post/post'));
+          'post', Uri.parse('http://65.2.182.126:5000/post/post'));
 
       request.headers.addAll({"Authorization": "Bearer $token"});
       request.fields["caption"] = captionController.text;

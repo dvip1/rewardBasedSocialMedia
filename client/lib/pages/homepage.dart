@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<http.Response> getPosts() async {
     String token = await SharedPref.getToken();
     Map<String, String> header = {"Authorization": "Bearer $token"};
-    return http.get(Uri.parse("http://192.168.78.217:5000/post/myposts"),
+    return http.get(Uri.parse("http://65.2.182.126:5000/post/myposts"),
         headers: header);
   }
 

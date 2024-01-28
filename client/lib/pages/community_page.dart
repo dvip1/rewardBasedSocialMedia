@@ -27,7 +27,7 @@ class CommunityPage extends StatelessWidget {
     String token = await SharedPref.getToken();
     Map<String, String> header = {"Authorization": "Bearer $token"};
     return http.get(
-        Uri.parse("http://192.168.78.217:5000/community/mycommunities"),
+        Uri.parse("http://65.2.182.126:5000/community/mycommunities"),
         headers: header);
   }
 
