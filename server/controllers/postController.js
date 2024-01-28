@@ -6,25 +6,31 @@ const communityModels = require("../models/communityModels");
 const postController = {};
 
 
+postController.addPost = async (req, res) => {
+  const { caption } = req.body;
+  const userId = req.user.id;
+  if (!mongoose.isValidObjectId(userId))
+    return res.status(404).json({ message: "userId is not valid" });
 
+  const user = await userModel.findOne({_id:userId}).select("username").lean().exec()
+  const newPost = await postModel.create({
+    caption: caption,
+    media: `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`,
+    user: user.username,
+  });
 
+  await userModel.findByIdAndUpdate(
+    { _id: userId },
+    {
+      $push: {
+        posts: newPost._id,
+      },
+    }
+  );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  if (newPost) res.json(newPost);
+  else res.json({ message: "failed to create post" });
+};
 
 
 
