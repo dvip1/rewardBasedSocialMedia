@@ -52,7 +52,6 @@ class _TaskWidgetState extends State<TaskWidget> {
         );
       },
       child: Card(
-        color: Theme.of(context).colorScheme.secondary,
         child: ListTile(
           title: Text(
             widget.name,

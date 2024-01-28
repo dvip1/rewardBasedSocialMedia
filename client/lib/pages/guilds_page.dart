@@ -84,7 +84,6 @@ class _GuildsPageState extends State<GuildsPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
         onPressed: () {
           showDialog(
             context: context,

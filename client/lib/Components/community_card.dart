@@ -52,16 +52,15 @@ class _CommunityWidgetState extends State<CommunityWidget> {
               children: [
                 ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    radius: 34,
-                    child: Text("D"),
+                    radius: 24,
+                    child: Text(widget.name[0].toUpperCase()),
                   ),
                   title: Text(widget.name,
                       style: const TextStyle(
-                          fontSize: 32, fontWeight: FontWeight.w500)),
+                          fontSize: 24, fontWeight: FontWeight.w500)),
                   subtitle: Text(widget.desc,
                       style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w500)),
+                          fontSize: 14, fontWeight: FontWeight.w500)),
                 ),
               ],
             ),

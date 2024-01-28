@@ -56,7 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     size: 80,
                     color: Theme.of(context).colorScheme.inversePrimary),
                 const SizedBox(height: 010),
-                const Text("M I N I M A L", style: TextStyle(fontSize: 20)),
+                const Text("L E V E L  U P", style: TextStyle(fontSize: 20)),
                 const SizedBox(height: 25),
                 TextField(
                   controller: emailController,

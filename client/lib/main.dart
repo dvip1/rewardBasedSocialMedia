@@ -1,7 +1,7 @@
 import 'package:client/services/authenticator.dart';
 
-import 'package:client/theme/dark_mode.dart';
-import 'package:client/theme/light_mode.dart';
+// import 'package:client/theme/dark_mode.dart';
+// import 'package:client/theme/light_mode.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,8 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Level Up',
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        home: Authenticator());
+        theme: ThemeData(useMaterial3: true),
+        // theme: lightTheme,
+        // darkTheme: darkTheme,
+        home: const Authenticator());
   }
 }

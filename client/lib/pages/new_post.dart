@@ -87,7 +87,7 @@ class _NewPostWidgetState extends State<NewPostWidget> {
                     },
                     child: Text("select video",
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 18,
                           color: Theme.of(context).colorScheme.secondary,
                         ))),
               )

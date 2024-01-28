@@ -41,7 +41,6 @@ class _WrapperState extends State<Wrapper> {
               currentPageIndex = index;
             });
           },
-          indicatorColor: Theme.of(context).colorScheme.secondary,
           selectedIndex: currentPageIndex,
           destinations: const <Widget>[
             NavigationDestination(

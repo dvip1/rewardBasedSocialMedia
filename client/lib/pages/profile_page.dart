@@ -48,7 +48,6 @@ class _ProfilePageState extends State<ProfilePage> {
               );
             }
             final body = jsonDecode(snapshot.data!.body);
-            print(body);
             int postC = (body["posts"] as List).length;
             int conC = (body["connections"] as List).length;
             return Column(
@@ -62,30 +61,22 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Text(
                           body["username"],
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 28, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           body["email"],
-                          style: TextStyle(
-                              color:
-                                  Theme.of(context).colorScheme.inversePrimary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400),
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w400),
                         )
                       ],
                     ),
                     CircleAvatar(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
                         radius: 32,
-                        child: Text("ifb")
-                        // Image(
-                        //   image: NetworkImage(
-                        //     body["profileImage"],
-                        //   ),
-                        // )
-                        )
+                        child: Text(
+                          body["username"][0],
+                          style: const TextStyle(fontSize: 34),
+                        ))
                   ],
                 ),
                 const SizedBox(
@@ -155,25 +146,19 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.secondary,
-                          ),
                           onPressed: () {},
                           child: const Text(
                             "Edit Profile",
-                            style: TextStyle(color: Colors.white),
                           )),
                     ),
                     const SizedBox(width: 20),
                     Expanded(
                       child: ElevatedButton(
                           onPressed: () {},
-                          child: Text(
+                          child: const Text(
                             "Connect",
                             style: TextStyle(
                               fontSize: 17,
-                              color: Theme.of(context).colorScheme.secondary,
                             ),
                           )),
                     ),

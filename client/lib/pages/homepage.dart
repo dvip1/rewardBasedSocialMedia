@@ -24,22 +24,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: SizedBox(
-        height: 75,
-        width: 75,
-        child: FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(
-              builder: (context) {
-                return const NewPostWidget();
-              },
-            ));
-          },
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) {
+              return const NewPostWidget();
+            },
+          ));
+        },
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
         ),
       ),
       body: Padding(
