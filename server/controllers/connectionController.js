@@ -19,12 +19,13 @@ connectionController.getUserData = async (req, res) => {
     const connectionId = connectionUser._id;
     const connectionUserName = connectionUser.username;
     console.log(connectionId, connectionUserName);
-    connectionUserData = {
+    const connectionUserData = {
       connectionId,
       connectionUserName,
     };
     res.status(200).json(connectionUserData);
   }
+  res.status(500).json({ message: "No user found with that username :(" });
 };
 
 connectionController.addConnection = async (req, res) => {

@@ -33,10 +33,8 @@ class _SignInPageState extends State<SignInPage> {
       isloading = true;
     });
 
-    print(emailController.text);
-
     final response = await http.post(
-      Uri.parse("http://192.168.78.217:5000/auth/signin"),
+      Uri.parse("http://65.2.182.126:5000/auth/signin"),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(
           {'email': emailController.text, 'password': passwordController.text}),
@@ -77,7 +75,7 @@ class _SignInPageState extends State<SignInPage> {
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12)),
-                      hintText: ""),
+                      hintText: "Email"),
                 ),
                 const SizedBox(height: 15),
                 TextField(
@@ -85,7 +83,7 @@ class _SignInPageState extends State<SignInPage> {
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12)),
-                      hintText: ""),
+                      hintText: "Password"),
                 ),
                 const SizedBox(height: 5),
                 const Row(
@@ -98,10 +96,15 @@ class _SignInPageState extends State<SignInPage> {
                 isloading
                     ? const CircularProgressIndicator()
                     : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.inversePrimary,
+                        ),
                         onPressed: () {
                           login();
                         },
-                        child: const Text("Continue"),
+                        child: const Text("Continue",
+                            style: TextStyle(color: Colors.white)),
                       ),
                 const SizedBox(height: 20),
                 Padding(
@@ -121,10 +124,12 @@ class _SignInPageState extends State<SignInPage> {
                           },
                         ));
                       },
-                      child: const Text(
+                      child: Text(
                         " Register Here",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
+                            color: Theme.of(context).colorScheme.inversePrimary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
                       ),
                     ),
                   ],

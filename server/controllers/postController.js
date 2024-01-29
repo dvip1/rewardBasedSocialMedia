@@ -1,8 +1,10 @@
 const postModel = require("../models/postModel");
 const { default: mongoose } = require("mongoose");
 const userModel = require("../models/userModel");
+const communityModels = require("../models/communityModels");
 
 const postController = {};
+
 
 postController.addPost = async (req, res) => {
   const { caption } = req.body;
@@ -10,10 +12,11 @@ postController.addPost = async (req, res) => {
   if (!mongoose.isValidObjectId(userId))
     return res.status(404).json({ message: "userId is not valid" });
 
+  const user = await userModel.findOne({_id:userId}).select("username").lean().exec()
   const newPost = await postModel.create({
     caption: caption,
-    media: `${req.protocol}://${req.headers.host}/uploads/${req.file.originalname}`,
-    authorId: userId,
+    media: `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`,
+    user: user.username,
   });
 
   await userModel.findByIdAndUpdate(
@@ -28,6 +31,9 @@ postController.addPost = async (req, res) => {
   if (newPost) res.json(newPost);
   else res.json({ message: "failed to create post" });
 };
+
+
+
 
 postController.getPost = async (req, res) => {
   const postId = req.params.postId;
@@ -45,6 +51,20 @@ postController.getUserPost = async (req, res) => {
     .limit(20)
     .lean()
     .exec();
+  res.json(posts);
+};
+
+postController.myPosts = async (req, res) => {
+  const userId = req.user.id;
+  if (!mongoose.isValidObjectId(userId))
+    return res.status(404).json({ message: "userId is not valid" });
+  const user = await userModel.findOne({_id:userId}).select("username").lean().exec();
+  const posts = await postModel
+    .find({ user: user.username })
+    .limit(20)
+    .lean()
+    .exec();
+    console.log(posts);
   res.json(posts);
 };
 

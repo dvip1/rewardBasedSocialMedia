@@ -1,9 +1,18 @@
 import 'package:client/pages/new_post.dart';
 import 'package:flutter/material.dart';
 
-class TaskWidget extends StatelessWidget {
-  const TaskWidget({super.key});
+class TaskWidget extends StatefulWidget {
+  String name;
+  String des;
+  String id;
+  TaskWidget(
+      {super.key, required this.id, required this.name, required this.des});
 
+  @override
+  State<TaskWidget> createState() => _TaskWidgetState();
+}
+
+class _TaskWidgetState extends State<TaskWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -20,7 +29,10 @@ class TaskWidget extends StatelessWidget {
                     onPressed: () {
                       Navigator.pop(dialogContext);
                     },
-                    child: const Text("No")),
+                    child: Text("No",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        ))),
                 TextButton(
                     onPressed: () {
                       Navigator.pop(dialogContext);
@@ -30,34 +42,22 @@ class TaskWidget extends StatelessWidget {
                         },
                       ));
                     },
-                    child: const Text("Yes"))
+                    child: Text("Yes",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        )))
               ],
             );
           },
         );
       },
       child: Card(
-        child: SizedBox(
-          height: 150,
-          width: MediaQuery.of(context).size.width,
-          child: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    "Community Name",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-                  ),
-                ),
-                Text(
-                  "85k peoples completed",
-                  style: TextStyle(fontSize: 16),
-                )
-              ],
-            ),
+        child: ListTile(
+          title: Text(
+            widget.name,
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
+          subtitle: Text(widget.des, style: const TextStyle(fontSize: 12)),
         ),
       ),
     );

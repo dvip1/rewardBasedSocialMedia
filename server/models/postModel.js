@@ -2,10 +2,9 @@ const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema(
   {
-    authorId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "User",
+    user: {
+      type: String,
+      required: true
     },
     media: {
       type: String,

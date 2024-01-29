@@ -19,7 +19,7 @@ authController.signup = async (req, res) => {
     const user = await userModel.create({
       username,
       email,
-      password
+      password,
     });
 
     if (user) res.status(201).json({ message: "user created" });
@@ -31,7 +31,6 @@ authController.signup = async (req, res) => {
 
 authController.signin = async (req, res) => {
   const { email, password } = req.body;
-
   if (!email.trim() || !password.trim())
     return res.status(400).json({ message: "all fields required" });
 
